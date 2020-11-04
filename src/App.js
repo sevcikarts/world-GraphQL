@@ -1,9 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import SaveIcon from "@material-ui/icons/Save";
-import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -51,7 +46,6 @@ function App() {
       code: "",
     },
   ]);
-  const renderCount = useRef(0);
 
   console.log(country);
 
@@ -142,7 +136,7 @@ function App() {
         <header className="App-header">
           <Typography variant="subtitle1" componen="div">
             <InputLabel color="primary" id="label">
-              Choose continent
+            Select continent
             </InputLabel>
 
             <Select labelId="label" component="select" onChange={changeHandler}>

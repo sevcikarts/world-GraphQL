@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #40495a;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -71,6 +71,7 @@ margin: 25px !important;
 
 .MuiInputBase-root{
   color: rgb(255, 255, 255) !important;
+  font-size: 20px !important;
   
 }
 .lang{
