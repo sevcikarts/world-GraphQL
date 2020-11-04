@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect} from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -6,6 +6,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { StateView } from "./StateView";
 import { Chacked } from "./Chacked";
 
+import FormControl from "@material-ui/core/FormControl";
 
 import Typography from "@material-ui/core/Typography";
 import {
@@ -18,12 +19,15 @@ import { orange } from "@material-ui/core/colors";
 import "./App.css";
 import "fontsource-roboto";
 
-const useStyles = makeStyles({
-  root: {
-    border: 0,
-    color: "white",
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
   },
-});
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const theme = createMuiTheme({
   palette: {
@@ -34,6 +38,7 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const classes = useStyles();
   const [country, setCountry] = useState([
     {
       name: "",
@@ -51,7 +56,6 @@ function App() {
   const [checked, setChecked] = useState(false);
   const [checkedCurreny, setCheckedCurreny] = useState(false);
   const [checkedCapital, setCheckedCapital] = useState(false);
-
 
   useEffect(() => {
     fetch(`https://countries.trevorblades.com/`, {
@@ -71,7 +75,6 @@ function App() {
         setContinent(data.data.continents);
       });
   }, []);
-
 
   function changeHandler(e) {
     fetch(`https://countries.trevorblades.com/`, {
@@ -104,24 +107,35 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Typography variant="subtitle1" componen="div">
-            <InputLabel color="primary" id="label">
-              Select continent
-            </InputLabel>
-            <Select labelId="label" component="select" onChange={changeHandler}>
-              {continent.map((item) => (
-                <MenuItem color="white" key={item.code} value={item.code}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <Grid container spacing={2} justify="center" direction="row">
-              <Chacked
-              checked={checked}
-              setChecked={setChecked}
-              setCheckedCapital={setCheckedCapital}
-              setCheckedCurreny={setCheckedCurreny}
-              />
-            </Grid>
+            <FormControl className={classes.formControl}>
+              <InputLabel
+                className={classes.formControl}
+                color="primary"
+                id="label"
+              >
+                Select continent
+              </InputLabel>
+              <Select
+                value="age"
+                labelId="label"
+                component="select"
+                onChange={changeHandler}
+              >
+                {continent.map((item) => (
+                  <MenuItem color="white" key={item.code} value={item.code}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              <Grid container spacing={2} justify="center" direction="row">
+                <Chacked
+                  checked={checked}
+                  setChecked={setChecked}
+                  setCheckedCapital={setCheckedCapital}
+                  setCheckedCurreny={setCheckedCurreny}
+                />
+              </Grid>
+            </FormControl>
           </Typography>
           <StateView
             country={country}

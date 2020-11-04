@@ -20,7 +20,6 @@ export const StateView = ({
                 <Grid item>
                   <Paper
                     elevation={3}
-                    style={{ height: 400, width: 300 }}
                     style={
                       item.name === "" ? { display: "none" } : { display: "" }
                     }

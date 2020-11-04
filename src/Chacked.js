@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 
 export const Chacked = ({checked,setChecked,setCheckedCapital,setCheckedCurreny}) => {
