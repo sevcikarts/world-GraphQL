@@ -1,14 +1,48 @@
-
 import React, { useState, useEffect, useRef } from "react";
-import './App.css';
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import SaveIcon from "@material-ui/icons/Save";
+import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 
-function App()  {
+import Typography from "@material-ui/core/Typography";
+import {
+  makeStyles,
+  ThemeProvider,
+  createMuiTheme,
+} from "@material-ui/core/styles";
+import { orange } from "@material-ui/core/colors";
+
+import "./App.css";
+import "fontsource-roboto";
+const useStyles = makeStyles({
+  root: {
+    border: 0,
+    color: "white",
+  },
+});
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: orange[500],
+    },
+  },
+});
+
+function App() {
   const [country, setCountry] = useState([
     {
       name: "",
       capital: "",
       currency: "",
-      languages: [{name: ""}]
+      languages: [{ name: "" }],
     },
   ]);
   const [continent, setContinent] = useState([
@@ -21,7 +55,7 @@ function App()  {
 
   console.log(country);
 
-   useEffect (() => {
+  useEffect(() => {
     fetch(`https://countries.trevorblades.com/`, {
       method: "post",
       headers: { "Content-type": "application/json" },
@@ -37,19 +71,15 @@ function App()  {
       .then((res) => res.json())
       .then((data) => {
         setContinent(data.data.continents);
-        
       });
   }, []);
 
-  
-
-  
-  const changeHandler =  (e) => {
-      fetch(`https://countries.trevorblades.com/`, {
+  function changeHandler(e) {
+    fetch(`https://countries.trevorblades.com/`, {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-         query: `query{
+        query: `query{
           continent(code:"${e.target.value}"){
             countries{
             name
@@ -63,45 +93,70 @@ function App()  {
         }`,
       }),
     })
-      .then((res) =>  res.json())
-      .then(( data) =>  {
-        setCountry (data.data.continent.countries);
-        console.log(data)
-     
-      })
+      .then((res) => res.json())
+      .then((data) => {
+        setCountry(data.data.continent.countries);
+        console.log(data);
+      });
+  }
+
+  const stateView = () => {
+    return (
+      <Container class="cont">
+        <div>
+          <Typography variant="subtitle1">
+            <Grid container spacing={2} justify="center" direction="row">
+              {country.map((item) => (
+                <Grid item>
+                  <Paper
+                    elevation={3}
+                    style={{ height: 400, width: 300 }}
+                    style={
+                      item.name === "" ? { display: "none" } : { display: "" }
+                    }
+                    key={item.name}
+                    component="li"
+                  >
+                    <strong className="state">{item.name} </strong> <br></br>
+                    capital: <strong> {item.capital}</strong> <br></br>
+                    currency: <strong> {item.currency}</strong>
+                    <p>language:</p>
+                    {item.languages.map((items) => (
+                      <p className="lang" key={items.name}>
+                        <em> {items.name}</em>
+                      </p>
+                    ))}
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          </Typography>
+        </div>
+      </Container>
+    );
   };
 
-
   return (
-    <div className="App">
-      <header className="App-header">
-      <label >Vyber kontinent:</label>
-     
-<select name="test"   onChange={changeHandler} > 
-  {continent.map((item) => (
-     <option  key={item.code} value={item.code}   >
-      {item.name}
-      
-    </option>
-  ))}
-  Select a Continent
-</select>
-<ul>
-{country.map((item) => (
-<li key={item.name} >
-stát: <strong>{item.name} </strong> <br></br>
-hlavní město: <strong> {item.capital}</strong> <br></br>
-měna: <strong> {item.currency}</strong>
-{item.languages.map((items) => (
-  <li key={items.name} > <p>Jazyk: {items.name}</p> </li>
-  ))}
-  ------------------------------------------------------------------------
-</li>))}
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <header className="App-header">
+          <Typography variant="subtitle1" componen="div">
+            <InputLabel color="primary" id="label">
+              Choose continent
+            </InputLabel>
 
-</ul>
-      </header>
-    </div>
+            <Select labelId="label" component="select" onChange={changeHandler}>
+              {continent.map((item) => (
+                <MenuItem color="white" key={item.code} value={item.code}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Typography>
+          {stateView()}
+        </header>
+      </div>
+    </ThemeProvider>
   );
- 
 }
 export default App;
