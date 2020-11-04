@@ -101,7 +101,6 @@ function App() {
         console.log(data);
       });
   }
-
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -109,14 +108,11 @@ function App() {
           <Typography variant="subtitle1" componen="div">
             <FormControl className={classes.formControl}>
               <InputLabel
-                className={classes.formControl}
                 color="primary"
                 id="label"
-              >
-                Select continent
-              </InputLabel>
+              >  Select continent </InputLabel>
               <Select
-                value="age"
+                value={continent.name}
                 labelId="label"
                 component="select"
                 onChange={changeHandler}
@@ -126,6 +122,7 @@ function App() {
                     {item.name}
                   </MenuItem>
                 ))}
+                
               </Select>
               <Grid container spacing={2} justify="center" direction="row">
                 <Chacked
@@ -133,10 +130,13 @@ function App() {
                   setChecked={setChecked}
                   setCheckedCapital={setCheckedCapital}
                   setCheckedCurreny={setCheckedCurreny}
+                  checkedCurreny={checkedCurreny}
+                  checkedCapital={checkedCapital}
                 />
               </Grid>
             </FormControl>
           </Typography>
+        
           <StateView
             country={country}
             checkedCapital={checkedCapital}

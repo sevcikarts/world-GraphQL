@@ -1,16 +1,18 @@
 import React from "react";
-import Checkbox from "@material-ui/core/Checkbox";
+import Switch from '@material-ui/core/Switch';
 
-export const Chacked = ({checked,setChecked,setCheckedCapital,setCheckedCurreny}) => {
+
+export const Chacked = ({checked,checkedCurreny,checkedCapital,setChecked,setCheckedCapital,setCheckedCurreny}) => {
   function CheckboxLanguage() {
+      
     return (
       <div>
-        <Checkbox
-          Checked={checked}
+        official language
+        <Switch 
+          checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
           color="primary"
         />{" "}
-        official language
       </div>
     );
   }
@@ -18,24 +20,24 @@ export const Chacked = ({checked,setChecked,setCheckedCapital,setCheckedCurreny}
   function CheckboxCapital() {
     return (
       <div>
-        <Checkbox
-          Checked={checked}
+         capital
+        <Switch 
+          checked={checkedCapital}
           onChange={(e) => setCheckedCapital(e.target.checked)}
           color="primary"
         />{" "}
-        capital
       </div>
     );
   }
   function CheckboxCurrency() {
     return (
       <div>
-        <Checkbox
-          Checked={checked}
+        currency
+        <Switch 
+          checked={checkedCurreny}
           onChange={(e) => setCheckedCurreny(e.target.checked)}
           color="primary"
         />{" "}
-        currency
       </div>
     );
   }

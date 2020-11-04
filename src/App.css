@@ -58,8 +58,6 @@ input{
 }
 label{
   color: rgb(255, 255, 255) !important;
-  margin: 15px !important;
-  font-size: 30px !important;
 }
 input {
   color: rgb(255, 255, 255) !important;

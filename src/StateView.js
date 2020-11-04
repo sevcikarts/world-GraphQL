@@ -4,6 +4,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+import Fade from '@material-ui/core/Fade';
+
 export const StateView = ({
   country,
   checkedCapital,
@@ -12,19 +14,23 @@ export const StateView = ({
 }) => {
   return (
     <div>
-      <Container class="cont">
-        <div>
+      <Container className="cont">
+     
           <Typography variant="subtitle1">
+         
             <Grid container spacing={2} justify="center" direction="row">
               {country.map((item) => (
-                <Grid item>
+                    
+                <Grid item key={item.capital}>
+                  
                   <Paper
+                  key={item.capital}
                     elevation={3}
                     style={
                       item.name === "" ? { display: "none" } : { display: "" }
                     }
-                    key={item.name}
                     component="li"
+                    
                   >
                     <strong className="state">{item.name} </strong>
                     <br></br>
@@ -44,7 +50,7 @@ export const StateView = ({
                           : { display: "" }
                       }
                     >
-                      currency: <strong> {item.currency}</strong>
+                      currency: <strong > {item.currency}</strong>
                     </div>
                     <p
                       style={
@@ -54,26 +60,29 @@ export const StateView = ({
                       }
                     >
                       language:
-                    </p>
+                    </p>  
                     {item.languages.map((items) => (
-                      <p
+                    <p key={items.name}
                         style={
                           checked === false
                             ? { display: "none" }
                             : { display: "" }
-                        }
+                        } 
                         className="lang"
-                        key={items.name}
-                      >
-                        <em> {items.name}</em>
-                      </p>
+                      
+                      >  
+                       <em > {items.name}</em>
+                 </p>
                     ))}
                   </Paper>
+                    
                 </Grid>
+                
               ))}
             </Grid>
+         
           </Typography>
-        </div>
+        
       </Container>
     </div>
   );
