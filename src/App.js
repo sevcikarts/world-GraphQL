@@ -74,25 +74,38 @@ function App() {
   }, []);
  const[checked,setChecked]=useState(false)
  const[checkedCurreny,setCheckedCurreny]=useState(false)
+ const[checkedCapital,setCheckedCapital]=useState(false)
 
   function CheckboxLanguage(){
-   
-    return(
+   return(
       <div>
         <Checkbox 
         Checked={checked}
         onChange={(e)=>setChecked(e.target.checked)}
+        color="primary"
         /> official language
       </div>
     )
   }
+
+  function CheckboxCapital(){
+   return(
+      <div>
+        <Checkbox 
+        Checked={checked}
+        onChange={(e)=>setCheckedCapital(e.target.checked)}
+        color="primary"
+        /> capital
+      </div>
+    )
+  }
   function CheckboxCurrency(){
-   
     return(
       <div>
         <Checkbox 
         Checked={checked}
         onChange={(e)=>setCheckedCurreny(e.target.checked)}
+        color="primary"
         /> currency
       </div>
     )
@@ -145,7 +158,9 @@ function App() {
                   >
                     <strong className="state">{item.name} </strong> 
                     <br></br>
-                    capital: <strong> {item.capital}</strong> <br></br>
+                    <div style={
+                        checkedCapital === false ? { display: "none" } : { display: "" }}>
+                    capital: <strong> {item.capital}</strong> <br></br></div>
                     <div style={
                         checkedCurreny === false ? { display: "none" } : { display: "" }
                       }>currency: <strong> {item.currency}</strong></div>
@@ -187,8 +202,9 @@ function App() {
               
             </Select>
             <Grid container spacing={2} justify="center" direction="row">
+            {CheckboxCapital()}
+            {CheckboxCurrency()}
              {CheckboxLanguage()}
-             {CheckboxCurrency()}
              </Grid>
           </Typography>
           {stateView()}
