@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import SaveIcon from "@material-ui/icons/Save";
+import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -67,6 +72,33 @@ function App() {
         setContinent(data.data.continents);
       });
   }, []);
+ const[checked,setChecked]=useState(false)
+ const[checkedCurreny,setCheckedCurreny]=useState(false)
+
+  function CheckboxLanguage(){
+   
+    return(
+      <div>
+        <Checkbox 
+        Checked={checked}
+        onChange={(e)=>setChecked(e.target.checked)}
+        /> official language
+      </div>
+    )
+  }
+  function CheckboxCurrency(){
+   
+    return(
+      <div>
+        <Checkbox 
+        Checked={checked}
+        onChange={(e)=>setCheckedCurreny(e.target.checked)}
+        /> currency
+      </div>
+    )
+  }
+
+
 
   function changeHandler(e) {
     fetch(`https://countries.trevorblades.com/`, {
@@ -111,12 +143,19 @@ function App() {
                     key={item.name}
                     component="li"
                   >
-                    <strong className="state">{item.name} </strong> <br></br>
+                    <strong className="state">{item.name} </strong> 
+                    <br></br>
                     capital: <strong> {item.capital}</strong> <br></br>
-                    currency: <strong> {item.currency}</strong>
-                    <p>language:</p>
+                    <div style={
+                        checkedCurreny === false ? { display: "none" } : { display: "" }
+                      }>currency: <strong> {item.currency}</strong></div>
+                    <p style={
+                        checked === false ? { display: "none" } : { display: "" }}
+                      >language:</p>
                     {item.languages.map((items) => (
-                      <p className="lang" key={items.name}>
+                      <p style={
+                        checked === false ? { display: "none" } : { display: "" }
+                      }className="lang" key={items.name}>
                         <em> {items.name}</em>
                       </p>
                     ))}
@@ -135,17 +174,22 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Typography variant="subtitle1" componen="div">
+         
             <InputLabel color="primary" id="label">
             Select continent
             </InputLabel>
-
-            <Select labelId="label" component="select" onChange={changeHandler}>
+                <Select labelId="label" component="select" onChange={changeHandler}>
               {continent.map((item) => (
                 <MenuItem color="white" key={item.code} value={item.code}>
-                  {item.name}
+                  {item.name}  
                 </MenuItem>
               ))}
+              
             </Select>
+            <Grid container spacing={2} justify="center" direction="row">
+             {CheckboxLanguage()}
+             {CheckboxCurrency()}
+             </Grid>
           </Typography>
           {stateView()}
         </header>
