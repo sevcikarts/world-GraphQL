@@ -98,7 +98,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setCountry(data.data.continent.countries);
-        console.log(data);
+        
       });
   }
   return (
@@ -112,7 +112,7 @@ function App() {
                 id="label"
               >  Select continent </InputLabel>
               <Select
-                value={continent.name}
+                defaultValue={continent.name || ""}
                 labelId="label"
                 component="select"
                 onChange={changeHandler}

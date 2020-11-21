@@ -21,10 +21,9 @@ export const StateView = ({
             <Grid container spacing={2} justify="center" direction="row">
               {country.map((item) => (
                     
-                <Grid item key={item.capital}>
+                <Grid item key={item.name}>
                   
                   <Paper
-                  key={item.capital}
                     elevation={3}
                     style={
                       item.name === "" ? { display: "none" } : { display: "" }
